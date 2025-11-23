@@ -45,8 +45,8 @@ static bool shouldUnmount(const mountinfo_entry &mount, const mountinfo_root_res
         if (true_root.starts_with(mountdir) || mount_point.starts_with(mountdir))
             return true;
 
-        // Unmount all overlayfs, tmpfs, devpts with lowerdir/upperdir/workdir in mountdir_list
-        if (type == "overlay" || type == "tmpfs" || type == "devpts")
+        // Unmount all overlayfs with lowerdir/upperdir/workdir in mountdir_list
+        if (type == "overlay")
         {
             const auto &options = mount.getSuperOptions();
 
