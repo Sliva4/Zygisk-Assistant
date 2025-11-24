@@ -83,7 +83,7 @@ void doUnmount()
 
     for (auto it = mount_infos.rbegin(); it != mount_infos.rend(); it++)
     {
-        if (!is_za_enabled) return false;
+        if (!is_za_enabled) break;
         if (shouldUnmount(*it, root_resolver))
         {
             const auto &mount_point_cstr = it->getMountPoint().c_str();
