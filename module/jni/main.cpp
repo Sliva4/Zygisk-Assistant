@@ -66,7 +66,6 @@ DCL_HOOK_FUNC(static int, setresuid, uid_t ruid, uid_t euid, uid_t suid)
  */
 static bool new_mount_ns()
 {
-    if (!is_za_enabled()) return true;
     /*
      * Unconditional unshare.
      */
@@ -92,7 +91,7 @@ public:
     void preAppSpecialize(AppSpecializeArgs *args) override
     {
         api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
-
+        if (!is_za_enabled()) return;
         uint32_t flags = api->getFlags();
         bool isRoot = (flags & zygisk::StateFlag::PROCESS_GRANTED_ROOT) != 0;
         bool isOnDenylist = (flags & zygisk::StateFlag::PROCESS_ON_DENYLIST) != 0;
