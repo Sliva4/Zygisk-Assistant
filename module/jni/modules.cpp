@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <sys/mount.h>
 #include <elfio/elfio.hpp>
+#include <fstream>
 
 // These includes are from the system_properties submodule, not NDK!
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
@@ -32,7 +33,14 @@ static const std::unordered_map<std::string, int> mount_flags_procfs = {
     {"nodiratime", MS_NODIRATIME},
     {"relatime", MS_RELATIME},
     {"nosymfollow", MS_NOSYMFOLLOW}};
-
+bool is_za_enabled() {
+    std::ifstream ifs("/data/adb/slivahider/za", std::ifstream::in);
+    if (!ifs) {
+        return false;
+    }
+    ifs.close();
+    return true;
+}
 static bool shouldUnmount(const mountinfo_entry &mount, const mountinfo_root_resolver &root_resolver)
 {
     const auto true_root = root_resolver.resolveRootOf(mount);
@@ -75,6 +83,7 @@ void doUnmount()
 
     for (auto it = mount_infos.rbegin(); it != mount_infos.rend(); it++)
     {
+        if (!is_za_enabled) return false;
         if (shouldUnmount(*it, root_resolver))
         {
             const auto &mount_point_cstr = it->getMountPoint().c_str();
