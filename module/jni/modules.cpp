@@ -34,8 +34,9 @@ static const std::unordered_map<std::string, int> mount_flags_procfs = {
     {"relatime", MS_RELATIME},
     {"nosymfollow", MS_NOSYMFOLLOW}};
 bool is_za_enabled() {
-    std::ifstream ifs("/data/adb/modules/slivahider/za", std::ifstream::in);
-    if (!ifs) {
+    std::ifstream ifs;
+    ifs.open("/data/adb/modules/slivahider/za", std::ifstream::in);
+    if (!ifs.is_open()) {
         return false;
     }
     ifs.close();
