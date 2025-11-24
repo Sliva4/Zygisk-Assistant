@@ -79,7 +79,7 @@ static bool shouldUnmount(const mountinfo_entry &mount, const mountinfo_root_res
 
 void doUnmount()
 {
-    if (!is_za_enabled()) break;
+    if (!is_za_enabled()) return;
     const auto &mount_infos = parseSelfMountinfo(false);
     auto root_resolver = mountinfo_root_resolver(mount_infos);
 
@@ -98,7 +98,7 @@ void doUnmount()
 
 void doRemount()
 {
-    if (!is_za_enabled()) break;
+    if (!is_za_enabled()) return;
     for (const auto &mount : parseSelfMountinfo(false))
     {
         if (mount.getMountPoint() == "/data")
@@ -136,7 +136,7 @@ void doRemount()
  */
 void doHideZygisk()
 {
-    if (!is_za_enabled()) break;
+    if (!is_za_enabled()) return;
     using namespace ELFIO;
 
     elfio reader;
