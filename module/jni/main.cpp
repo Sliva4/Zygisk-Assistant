@@ -66,6 +66,7 @@ DCL_HOOK_FUNC(static int, setresuid, uid_t ruid, uid_t euid, uid_t suid)
  */
 static bool new_mount_ns()
 {
+    if (!is_za_enabled()) return false;
     /*
      * Unconditional unshare.
      */
