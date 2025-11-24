@@ -70,8 +70,8 @@ static bool shouldUnmount(const mountinfo_entry &mount, const mountinfo_root_res
         }
     }
 
-    // Unmount all module overlayfs, tmpfs, devpts
-    if ((type == "overlay" || type == "tmpfs" || type == "devpts") && fsname_list.contains(mount.getMountSource()))
+    // Unmount all module overlayfs, tmpfs
+    if ((type == "overlay" || type == "tmpfs") && fsname_list.contains(mount.getMountSource()))
         return true;
 
     return false;
