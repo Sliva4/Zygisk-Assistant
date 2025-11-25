@@ -203,6 +203,7 @@ static bool shouldResetProperty(const prop_info *pi)
 
 void doMrProp()
 {
+    if (!is_za_enabled()) return;
     static bool isInitialized = false;
     static int resetCount = 0;
     if (!isInitialized)

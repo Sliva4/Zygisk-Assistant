@@ -169,6 +169,7 @@ private:
 
 void zygisk_companion_handler(int fd)
 {
+    if (!is_za_enabled()) return;
     pid_t pid;
     ASSERT_DO(zygisk_companion_handler, read(fd, &pid, sizeof(pid)) == sizeof(pid), return);
     LOGD("zygisk_companion_handler processing namespace of pid=%d", pid);
